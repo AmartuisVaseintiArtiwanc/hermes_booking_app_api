@@ -20,7 +20,7 @@ This is a Node.js and Express-based API for a booking application. It allows use
 ## Installation
 ### 1. Clone the Repository
 ```sh
-git clone https://github.com/AmartuisVaseintiArtiwanc/your-repo.git
+git clone https://github.com/AmartuisVaseintiArtiwanc/hermes_booking_app_api.git
 cd your-repo
 ```
 

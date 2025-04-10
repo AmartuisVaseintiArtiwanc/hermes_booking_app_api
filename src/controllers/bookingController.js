@@ -36,12 +36,12 @@ const createBooking = async (req, res) => {
 }
 
 const cancelBooking = async (req, res) => {
-    const { bookingId } = req.params;
+    const { eventId } = req.params;
     const userId = req.user.userId;
 
     try {
         // Find booking
-        const [booking] = await db.query("SELECT e.date, ep.user_id FROM event_participants ep JOIN events e ON ep.event_id = e.id WHERE ep.id = ? AND ep.user_id = ?", [bookingId, userId]);
+        const [booking] = await db.query("SELECT e.date, ep.user_id FROM event_participants ep JOIN events e ON ep.event_id = e.id WHERE e.id = ? AND ep.user_id = ?", [eventId, userId]);
         if (booking.length === 0) return res.status(404).json({ message: "Booking not found." });
 
         // Prevent same-day cancellations
@@ -51,7 +51,7 @@ const cancelBooking = async (req, res) => {
         }
 
         // Cancel booking
-        await db.query("UPDATE event_participants SET status='cancelled' WHERE id = ?", [bookingId]);
+        await db.query("DELETE FROM event_participants WHERE event_id = ? AND user_id = ?", [eventId, userId]);
         res.json({ message: "Successfully canceled the booking." });
 
     } catch (error) {

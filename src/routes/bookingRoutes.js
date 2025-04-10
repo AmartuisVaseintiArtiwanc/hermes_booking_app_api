@@ -8,7 +8,7 @@ const bookingController = require("../controllers/bookingController");
 router.post("/", authenticateToken, bookingController.createBooking);
 
 // Cancel a booking
-router.put("/cancel/:bookingId", authenticateToken, bookingController.cancelBooking);
+router.delete("/cancel/:eventId", authenticateToken, bookingController.cancelBooking);
 
 // Get user's bookings (past & upcoming)
 router.get("/user/", authenticateToken, bookingController.getUserBookings);

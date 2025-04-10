@@ -61,7 +61,7 @@ const loginUser = async (req, res) => {
 
 const getProfile = async (req, res) => {
     try {
-      const [user] = await db.query("SELECT id, email, username FROM users WHERE id = ?", [req.user.userId]);
+      const [user] = await db.query("SELECT id, email, username, role, role_level FROM users WHERE id = ?", [req.user.userId]);
       if (!user.length) return res.status(404).json({ message: "User not found" });
   
       res.json(user[0]);
